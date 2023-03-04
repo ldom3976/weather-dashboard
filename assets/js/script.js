@@ -54,6 +54,11 @@ var cities = [];
         });
  }
 
+ var getDaily = function (data) {
+    //need to figure out how to get lat and lon of city
+    // https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+ }
+
  var displayWeather = function () {
     fiveDayContainerEl.textContent = "";
     weatherContainerEl.textContent = "";
