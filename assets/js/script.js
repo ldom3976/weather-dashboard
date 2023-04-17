@@ -168,3 +168,6 @@ var cities = [];
  }
 
  // add event listeners
+
+ cityFormEl.addEventListener("submit", formSubmit);
+ pastSearch();
