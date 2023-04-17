@@ -6,6 +6,8 @@ var cities = [];
  var currentWeatherEl = document.querySelector("#current-weather");
  var fiveDayContainerEl = document.querySelector("#five-day-container");
  var headerContainerEl = document.querySelector("header-container");
+ var historyEl = document.querySelector("#history");
+ var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
  var city = [];
 
  var apiKey = "c9495534c42d51955c234e09ba782764";
