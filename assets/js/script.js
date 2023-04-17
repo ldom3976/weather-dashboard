@@ -46,7 +46,7 @@ var cities = [];
 
             } else {
                 alert("Error: " + response.statusText);
-                //getCity();
+                getCity();
             }
         })
         .catch(function (error) {
@@ -55,13 +55,42 @@ var cities = [];
  }
 
  var getDaily = function (data) {
-    //need to figure out how to get lat and lon of city
-    // https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}
+    var lat = data.coord.lat
+    var lon = data.coord.lon
+
+    console.log(lat);
+    console.log(lon);
+
+    var apiUrlCoord = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    fetch(apiUrlCoord)
+
+    .then(function (response) {
+        if (response.ok) {
+            console.log(response);
+            response.json().then(function (data) {
+                console.log(data);
+                getFiveDay(data);
+                console.log(data.daily)
+                displayWeather(data);
+            });
+        } else {
+            alert("Error: " + response.statusText);
+        
+        }
+    })
+
+    .catch(function (error) {
+        alert("Cannot connect to OpenWeather.");
+    });
  }
 
  var displayWeather = function () {
     fiveDayContainerEl.textContent = "";
     weatherContainerEl.textContent = "";
+ }
+
+ var getFiveDay = function () {
+    //five day function goes here
  }
 
  var saveSearch = function () {
