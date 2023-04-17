@@ -46,7 +46,7 @@ var cities = [];
 
             } else {
                 alert("Error: " + response.statusText);
-                getCity();
+                //getCity();
             }
         })
         .catch(function (error) {
