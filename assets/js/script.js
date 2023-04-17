@@ -137,12 +137,34 @@ var cities = [];
     console.log(fiveDayContainerEl);
  }
 
- var saveSearch = function () {
-    // save search
+ var saveSearch = function (city) {
+    var searchItem = city;
+
+    searchHistory.push(searchItem);
+      
+    localStorage.setItem("search", JSON.stringify(searchHistory));
+    console.log(searchItem);
+    pastSearch();
+
  }
 
  var pastSearch = function () {
-    //local storage for past searches
+    historyEl.innerHTML = "";
+    for (var i = 0; i < searchHistory.length; i++) {
+        var historyItem = document.createElement("input");
+        historyItem.setAttribute("type", "text");
+        historyItem.setAttribute("readonly", true);
+        historyItem.setAttribute("class", "form-control d-block bg-gray w-75 mt-1 md-1");
+        historyItem.setAttribute("value", searchHistory[i]);
+        historyItem.addEventListener("click", function (event) {
+            console.log(event.target.value);
+            fiveDayContainerEl.innerHTML = "";
+            currentWeatherEl.innerHTML = "";
+            city = event.target.value;
+            getCity(city);
+        })
+        historyEl.appendChild(historyItem);
+    }
  }
 
  // add event listeners
