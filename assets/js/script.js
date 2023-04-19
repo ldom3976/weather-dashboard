@@ -1,3 +1,5 @@
+var apiKey = "c9495534c42d51955c234e09ba782764";
+
 var cities = [];
  var cityFormEl = document.querySelector("#city-form")
  var cityInputEl = document.querySelector("#city");
@@ -9,8 +11,6 @@ var cities = [];
  var historyEl = document.querySelector("#history");
  var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
  var city = [];
-
- var apiKey = "c9495534c42d51955c234e09ba782764";
 
  var formSubmit = function (event) {
     //prevents page from refreshing
@@ -42,6 +42,7 @@ var cities = [];
                 console.log(response);
                 response.json().then(function (data) {
                     console.log(data);
+                    getDaily(data);
 
 
                 });
@@ -52,7 +53,7 @@ var cities = [];
             }
         })
         .catch(function (error) {
-            alert("Cannot connect to OpenWeather");
+            alert("Cannot connect to OpenWeather.");
         });
  }
 
@@ -63,7 +64,10 @@ var cities = [];
     console.log(lat);
     console.log(lon);
 
-    var apiUrlCoord = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    var apiUrlCoord = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    
+    //"https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+    
     fetch(apiUrlCoord)
 
     .then(function (response) {
@@ -71,9 +75,9 @@ var cities = [];
             console.log(response);
             response.json().then(function (data) {
                 console.log(data);
-                getFiveDay(data);
+                getFiveDay(data.list);
                 console.log(data.daily)
-                displayWeather(data);
+                displayWeather(data.list);
             });
         } else {
             alert("Error: " + response.statusText);
@@ -88,8 +92,7 @@ var cities = [];
 
  var displayWeather = function (data, city) {
     var currentWeatherEl = document.querySelector("#current-weather");
-    currentWeatherEl.innerHTML = data.daily
-        .map((day, idx) => {
+    currentWeatherEl.innerHTML = data?.map((day, idx) => {
             if (idx <= 0) {
                 var dt = new Date(day.dt * 1000);
                 return `<div class="col">
@@ -101,10 +104,9 @@ var cities = [];
                     alt="${day.weather[0].description}" />
                 <div class="card-body">
                     <h3 class="card-title">${day.weather[0].main}</h3>
-                    <p class="card-text">Temp: ${day.temp.day} \u00B0F</p>
-                    <p class="card-text">Wind: ${day.wind_speed} m/s</p>
-                    <p class="card-text">Humidity: ${day.humidity} %</p>
-                    <p class="card-text">UV index: ${day.uvi}</p>
+                    <p class="card-text">Temp: ${day.main.temp} \u00B0F</p>
+                    <p class="card-text">Wind: ${day.wind.speed} m/s</p>
+                    <p class="card-text">Humidity: ${day.main.humidity} %</p>
                 </div>
             </div>
         </div>`
@@ -115,8 +117,7 @@ var cities = [];
 
  var getFiveDay = function (data) {
     var fiveDayContainerEl = document.querySelector("#five-day-container");
-    fiveDayContainerEl.innerHTML = data.daily
-        .map((day, idx) => {
+    fiveDayContainerEl.innerHTML = data?.map((day, idx) => {
             if (idx <= 4) {
                 var dt = new Date(day.dt * 1000);
                 return `<div class="col">
@@ -127,9 +128,9 @@ var cities = [];
             alt=""${day.weather[0].description}" />
         <div class="card-body">
             <h3 class="card-title"> ${day.weather[0].main}</h3>
-            <p class="card-text">Temp: ${day.temp.day} \u00B0F</p>
-            <p class="card-text">Wind: ${day.wind_speed} m/s</p>
-            <p class="card-text">Humidity: ${day.humidity} %</p>
+            <p class="card-text">Temp: ${day.main.temp} \u00B0F</p>
+            <p class="card-text">Wind: ${day.wind.speed} m/s</p>
+            <p class="card-text">Humidity: ${day.main.humidity} %</p>
         </div>
     </div>
 </div>`;
