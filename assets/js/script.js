@@ -65,8 +65,7 @@ var cities = [];
     console.log(lon);
 
     var apiUrlCoord = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
-    
-    //"https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey;
+
     
     fetch(apiUrlCoord)
 
@@ -89,6 +88,8 @@ var cities = [];
         alert("Cannot connect to OpenWeather.");
     });
  }
+
+ // displays current weather function
 
  var displayWeather = function (data, city) {
     var currentWeatherEl = document.querySelector("#current-weather");
@@ -115,6 +116,8 @@ var cities = [];
 
  }
 
+ //five day forecast function
+
  var getFiveDay = function (data) {
     var fiveDayContainerEl = document.querySelector("#five-day-container");
     fiveDayContainerEl.innerHTML = data?.map((day, idx) => {
@@ -140,6 +143,8 @@ var cities = [];
     console.log(fiveDayContainerEl);
  }
 
+ // saves search to local storage
+
  var saveSearch = function (city) {
     var searchItem = city;
 
@@ -151,6 +156,8 @@ var cities = [];
 
  }
 
+ //displays search history
+ 
  var pastSearch = function () {
     historyEl.innerHTML = "";
     for (var i = 0; i < searchHistory.length; i++) {
@@ -170,7 +177,7 @@ var cities = [];
     }
  }
 
- // add event listeners
+ // event listener
 
  cityFormEl.addEventListener("submit", formSubmit);
  pastSearch();
