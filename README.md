@@ -21,7 +21,9 @@ This app allows the user to search for any city's weather forecast.
 
 ## Usage
 
-Use a web browser to access the website:
+Use a web browser to access the website: <br>
+
+ https://ldom3976.github.io/weather-dashboard <br>
 
 The user may type in the city they wish to search for on the left hand side. The user will then be presented with that city's current five day weather forecast. The user's search will also be saved to local storage and displayed underneath the search bar for easy access the next time they visit the website.
 
@@ -33,4 +35,4 @@ The user may type in the city they wish to search for on the left hand side. The
 
 - Github: [Elisha Ballard](https://github.com/ldom3976)
 - Github Repo: [Weather Dashboard](https://github.com/ldom3976/weather-dashboard)
-- [Deployed Website]
+- [Deployed Website]( https://ldom3976.github.io/weather-dashboard)
